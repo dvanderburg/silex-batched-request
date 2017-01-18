@@ -1,6 +1,6 @@
 <?php
 	
-	namespace App\Api\Batch;
+	namespace Dvanderburg\BatchedRequest;
 	
 	use Silex\Application;
 	use Silex\Api\BootableProviderInterface;
