@@ -5,7 +5,7 @@
     "keywords": ["silex","batch"],
     "type": "library",
     "autoload": {
-	    "psr-0": {
+	    "psr-4": {
 		    "Dvanderburg\\BatchedRequest": "src/"
 		}
      },

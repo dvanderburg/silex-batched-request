@@ -8,7 +8,7 @@
 	use Pimple\ServiceProviderInterface;
 	use Symfony\Component\HttpFoundation\Request;
 	
-	use App\Api\Batch\BatchedRequest;
+	use Dvanderburg\BatchedRequest\BatchedRequest;
 
 	/**
 		Service provider to accomodate batched requests
@@ -19,7 +19,7 @@
 		Important note: Firewall rules do not apply to subrequests!
 		
 		Integration
-			$app->register(new App\Api\Batch\BatchRequestServiceProvider(), array(
+			$app->register(new Dvanderburg\BatchedRequest\BatchRequestServiceProvider(), array(
 				'batchrequest.url' => "batch"	// this is the default value
 			));
 			
