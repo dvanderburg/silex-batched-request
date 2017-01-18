@@ -1,0 +1,17 @@
+{
+    "name": "dvanderburg/silex-batched-request",
+    "description": "Service provider for batched requests in Silex.",
+    "type": "library",
+    "require": {
+        "silex/silex": "~2.0",
+        "flow/jsonpath": "~0.3.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dave Vanderburg",
+            "email": "dvanderburg@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
