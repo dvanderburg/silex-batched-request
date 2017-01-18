@@ -2,7 +2,7 @@
     "name": "dvanderburg/silex-batched-request",
     "description": "Service provider for batched requests in Silex.",
     "homepage": "https://github.com/dvanderburg/silex-batched-request",
-    "keywords": ["silex","batch"]
+    "keywords": ["silex","batch"],
     "type": "library",
     "autoload": {
 	    "psr-0": {
