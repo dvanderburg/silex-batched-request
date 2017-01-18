@@ -6,7 +6,7 @@
     "type": "library",
     "autoload": {
 	    "psr-4": {
-		    "Dvanderburg\\BatchedRequest": "src/"
+		    "Dvanderburg\\BatchedRequest\\": "src"
 		}
      },
     "require": {
