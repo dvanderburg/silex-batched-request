@@ -205,6 +205,24 @@
 			return true;
 			
 		}
+
+		/**
+		 * [getParameters description]
+		 * @param  [type] $batchedRequest [description]
+		 * @return [type]                 [description]
+		 */
+		private function getParameters($batchedRequest) {
+
+			$parameters = array();
+
+			if ($batchedRequest['method'] == "POST" || $batchedRequest['method'] == "PUT") {
+				$parameters = $this->getPayloadParameters($batchedRequest);
+			} else {
+				$parameters = $this->getQueryParameters($batchedRequest);
+			}
+
+			return $parameters;
+		}
 		
 		/**
 			Retrieves and formats any parameters in the batched request as an array
@@ -213,7 +231,7 @@
 			
 			@return	array	The query string parameters as an associative array: ?one=1&two=2 becomes [ "one" => 1, "two" => 2 ]
 		*/
-		private function getParameters($batchedRequest) {
+		private function getQueryParameters($batchedRequest) {
 			
 			$parameters = array();
 			
@@ -240,6 +258,23 @@
 			
 			return $parameters;
 			
+		}
+
+		/**
+		 * Retrieves the request payload from the provided batched request. The Request body is raw http post body string. Ex. firstname=%22dave%22%26lastname=%22vanderburg%22
+			@param	array	$batchedRequest		The batched request details [ method => "", relative_url => "", body => "" ]
+
+			@return array 	An array of the parsed request body data
+		 */
+		private function getPayloadParameters($batchedRequest) {
+
+			$parameters = array();
+
+			if ($batchedRequest["body"]) {
+				parse_str($batchedRequest["body"], $parameters);
+			}
+
+			return $parameters;
 		}
 		
 		/**
