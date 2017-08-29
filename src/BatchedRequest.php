@@ -141,7 +141,7 @@
 			@return	array		The response as an array (code, headers, body)
 		*/
 		private function handleBatchedRequest(Application $app, $batchedRequest) {
-			
+
 			// determine parameters (GET/POST) for the batched request
 			$parameters = $this->getParameters($batchedRequest);
 
@@ -207,19 +207,17 @@
 		}
 
 		/**
-		 * [getParameters description]
-		 * @param  [type] $batchedRequest [description]
-		 * @return [type]                 [description]
+		 * Constructs an array of parameters from the query paraments from the relative_url and the payload parameter from the body of
+		 * from the request.
+		 * @param	array	$batchedRequest		The batched request details [ method => "", relative_url => "",... ]
+		 * @return  array   An array of parameters for the request
 		 */
 		private function getParameters($batchedRequest) {
 
 			$parameters = array();
 
-			if ($batchedRequest['method'] == "POST" || $batchedRequest['method'] == "PUT") {
-				$parameters = $this->getPayloadParameters($batchedRequest);
-			} else {
-				$parameters = $this->getQueryParameters($batchedRequest);
-			}
+			$parameters = array_merge($parameters, $this->getPayloadParameters($batchedRequest));
+			$parameters = array_merge($parameters, $this->getQueryParameters($batchedRequest));
 
 			return $parameters;
 		}
@@ -270,8 +268,22 @@
 
 			$parameters = array();
 
-			if ($batchedRequest["body"]) {
-				parse_str($batchedRequest["body"], $parameters);
+			if ($batchedRequest["body"] && $batchedRequest["content-type"]) {
+				// Check the content-type and see how it should be parsed
+				if($batchedRequest["content-type"] == "application/json") {
+					// If the body is in json it would automatically be parsed when being passed through Request
+					return $batchedRequest["body"];
+				} else if ($batchedRequest["content-type"] == "application/x-www-form-urlencoded") {
+
+					// Parse the body by exploding it into chunks
+					$explodedParameters = explode ('&', $batchedRequest["body"]);
+					foreach ($explodedParameters as $paramterChunk) {
+						$parameter = explode ('=', $paramterChunk);
+						$name = urldecode ($parameter[0]);
+						$value = (isset ($parameter[1]) ? urldecode ($parameter[1]) : null);
+						$parameters[$name] = $value;
+					}
+				}
 			}
 
 			return $parameters;
