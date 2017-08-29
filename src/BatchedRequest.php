@@ -268,7 +268,7 @@
 
 			$parameters = array();
 
-			if ($batchedRequest["body"] && $batchedRequest["content-type"]) {
+			if (isset($batchedRequest["body"]) && isset($batchedRequest["content-type"])) {
 				// Check the content-type and see how it should be parsed
 				if($batchedRequest["content-type"] == "application/json") {
 					// If the body is in json it would automatically be parsed when being passed through Request
