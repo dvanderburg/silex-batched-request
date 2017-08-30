@@ -38,7 +38,7 @@ The service provider can be configured to determine which URL to process batched
 
 ## Simple Batched Requests
 
-Send a basic batched request by sending an HTTP post to the url you configured the service provider with (/batch/ by default). This example will perform two GET requests and a POST, returning an array of responses.
+Send a basic batched request by sending an HTTP post to the url you configured the service provider with (/batch/ by default). This example will perform two GET requests and a POST, returning an array of responses. If sending in form data via the body parameter you will need to specify the content type(application/x-www-form-urlencoded or application/json).
 
 HTTP POST Example:
 ```
@@ -48,7 +48,7 @@ include_headers: true,
 batch: [
 	{ "method": "GET",	"relative_url": "/products/1?one=1&two=2&three=3" },
 	{ "method": "GET",	"relative_url": "/users/?ids=larry,jill,sally" },
-	{ "method": "POST",	"name": "create-user", "relative_url": "/users/?username=john&password=admin" },
+	{ "method": "POST",	"content-type": "application/x-www-form-urlencoded", "name": "create-user", "relative_url": "/users/?username=john" "body": "password=admin"},
 ```
 
 JQuery XHR Example:
@@ -61,7 +61,7 @@ $.ajax({
 		batch: [
 			{ "method": "GET",	"relative_url": "/products/1?one=1&two=2&three=3" },
 			{ "method": "GET",	"relative_url": "/users/?ids=larry,jill,sally" },
-			{ "method": "POST",	"name": "create-user", "relative_url": "/users/?username=john&password=admin" },
+			{ "method": "POST",	"content-type": "application/x-www-form-urlencoded", "name": "create-user", "relative_url": "/users/?username=john" "body": "password=admin" },
 		]
 	}
 })
