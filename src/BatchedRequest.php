@@ -270,10 +270,10 @@
 
 			if (isset($batchedRequest["body"]) && isset($batchedRequest["content-type"])) {
 				// Check the content-type and see how it should be parsed
-				if($batchedRequest["content-type"] == "application/json") {
+				if($batchedRequest["content-type"] == "application/json" && is_array($batchedRequest["body"])) {
 					// If the body is in json it would automatically be parsed when being passed through Request
 					return $batchedRequest["body"];
-				} else if ($batchedRequest["content-type"] == "application/x-www-form-urlencoded") {
+				} else if ($batchedRequest["content-type"] == "application/x-www-form-urlencoded" && is_string($batchedRequest["body"])) {
 
 					// Parse the body by exploding it into chunks
 					$explodedParameters = explode ('&', $batchedRequest["body"]);
